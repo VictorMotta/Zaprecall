@@ -2,8 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyled = createGlobalStyle`
 * {
+    font-family: 'Recursive', sans-serif;
+    /* font-family: 'Righteous', sans-serif; */
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
 }
 html,
 body,
