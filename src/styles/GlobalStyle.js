@@ -1,11 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyled = createGlobalStyle`
-* {
-    font-family: 'Recursive', sans-serif;
-    /* font-family: 'Righteous', sans-serif; */
-    box-sizing: border-box;
-}
+
 html,
 body,
 div,
@@ -87,6 +83,7 @@ time,
 mark,
 audio,
 video {
+    
     margin: 0;
     padding: 0;
     border: 0;
@@ -129,6 +126,12 @@ q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+* {
+    /* font-family: 'Recursive', sans-serif; */
+    /* font-family: 'Righteous', sans-serif; */
+    box-sizing: border-box;
 }
 
 
