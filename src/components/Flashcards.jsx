@@ -4,8 +4,8 @@ import Card from "./Card";
 export default function Flashcards({ iconSeta, cards }) {
     return (
         <StyledFlashcardsQuestions>
-            {cards.map((item) => (
-                <Card iconSeta={iconSeta} alt='Seta de play' />
+            {cards.map((item, i) => (
+                <Card numberFlashCard={i + 1} iconSeta={iconSeta} alt='Seta de play' />
             ))}
         </StyledFlashcardsQuestions>
     );
