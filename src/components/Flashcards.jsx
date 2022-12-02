@@ -1,11 +1,17 @@
 import styled from "styled-components";
 import Card from "./Card";
 
-export default function Flashcards({ iconSeta, cards }) {
+export default function Flashcards({ cards, setContador, contador }) {
     return (
         <StyledFlashcardsQuestions>
             {cards.map((item, i) => (
-                <Card numberFlashCard={i + 1} iconSeta={iconSeta} alt='Seta de play' />
+                <Card
+                    numberFlashCard={i + 1}
+                    question={item.question}
+                    answer={item.answer}
+                    contador={contador}
+                    setContador={setContador}
+                ></Card>
             ))}
         </StyledFlashcardsQuestions>
     );

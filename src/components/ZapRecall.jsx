@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Flashcards from "../components/Flashcards";
 import logo from "../assets/logo.png";
-import iconSeta from "../assets/seta_play.png";
 import Sidebar from "./Sidebar";
+import { useState } from "react";
 
 export default function ZapRecall() {
     const cards = [
@@ -30,6 +30,7 @@ export default function ZapRecall() {
             answer: "Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente",
         },
     ];
+    const [contador, setContador] = useState(0);
 
     return (
         <StyledContainerTotal>
@@ -37,8 +38,8 @@ export default function ZapRecall() {
                 <StyledImg src={logo} alt='Um raio da logo do ZapRecall' />
                 <StyledH1>ZapRecall</StyledH1>
             </StyledLogo>
-            <Flashcards iconSeta={iconSeta} cards={cards} />
-            <Sidebar />
+            <Flashcards cards={cards} contador={contador} setContador={setContador} />
+            <Sidebar contador={contador} qtdTotal={cards.length} />
         </StyledContainerTotal>
     );
 }

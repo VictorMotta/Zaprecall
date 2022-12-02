@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-export default function Sidebar() {
+export default function Sidebar({ qtdTotal, contador }) {
     return (
         <StyledSideBar>
-            <h1>0/4 CONCLUÍDOS</h1>
+            <h1>
+                {contador}/{qtdTotal} CONCLUÍDOS
+            </h1>
         </StyledSideBar>
     );
 }
