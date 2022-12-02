@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function Sidebar({ qtdTotal, contador }) {
     return (
         <StyledSideBar>
-            <h1>
+            <h1 data-test='footer'>
                 {contador}/{qtdTotal} CONCLUÍDOS
             </h1>
         </StyledSideBar>

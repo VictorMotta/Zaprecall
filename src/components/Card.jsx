@@ -6,71 +6,72 @@ import iconErrou from "../assets/icone_erro.png";
 import iconCerto from "../assets/icone_certo.png";
 import iconQuase from "../assets/icone_quase.png";
 
+const CORPADRAO = "#333333";
+const CORERROU = "#FF3030";
+const CORDUVIDA = "#FF922E";
+const CORACERTOU = "#2FBE34";
+
 export default function Card({ numberFlashCard, question, answer, contador, setContador }) {
-    const CORPADRAO = "#333333";
-    const CORERROU = "#FF3030";
-    const CORDUVIDA = "#FF922E";
-    const CORACERTOU = "#2FBE34";
     const [toggleCardInitial, setToggleCardInitial] = useState(false);
     const [toggleCardQuestion, setToggleCardQuestion] = useState(false);
     const [toggleCardAnswer, setToggleCardAnswer] = useState(false);
+    const [toggleCardCorrecao, setToggleCardCorrecao] = useState(false);
     const [imgCorrecao, setImgCorrecao] = useState(iconSeta);
     const [stateAtual, setStateAtual] = useState("none");
     const [corLetra, setCorLetra] = useState(CORPADRAO);
-    const [desativado, setDesativado] = useState(false);
+    const [dataTestIcon, setDataTestIcon] = useState("");
 
     function naoLembrei() {
         setToggleCardAnswer(false);
         setStateAtual("line-through");
-        setToggleCardInitial(false);
+        setToggleCardCorrecao(true);
         setCorLetra(CORERROU);
         setImgCorrecao(iconErrou);
-        setDesativado(true);
         setContador(contador + 1);
+        setDataTestIcon("no-icon");
     }
 
     function quaseLembrei() {
         setToggleCardAnswer(false);
         setStateAtual("line-through");
-        setToggleCardInitial(false);
+        setToggleCardCorrecao(true);
         setCorLetra(CORDUVIDA);
         setImgCorrecao(iconQuase);
-        setDesativado(true);
         setContador(contador + 1);
+        setDataTestIcon("partial-icon");
     }
 
     function acertei() {
         setToggleCardAnswer(false);
         setStateAtual("line-through");
-        setToggleCardInitial(false);
+        setToggleCardCorrecao(true);
         setCorLetra(CORACERTOU);
         setImgCorrecao(iconCerto);
-        setDesativado(true);
         setContador(contador + 1);
+        setDataTestIcon("zap-icon");
     }
 
     return (
         <>
             <StyledCardInitial
-                corDaLetra={corLetra}
-                textoDecorado={stateAtual}
+                data-test='flashcard'
                 visibilidade={!toggleCardInitial ? "flex" : "none"}
             >
-                <h1>Pergunta {numberFlashCard}</h1>
+                <h1 data-test='flashcard-text'>Pergunta {numberFlashCard}</h1>
                 <img
-                    src={imgCorrecao}
+                    data-test='play-btn'
+                    src={iconSeta}
                     onClick={() => {
-                        if (!desativado) {
-                            setToggleCardInitial(true);
-                            setToggleCardQuestion(true);
-                        }
+                        setToggleCardInitial(true);
+                        setToggleCardQuestion(true);
                     }}
                     alt='Icone de Virar'
                 />
             </StyledCardInitial>
             <StyledCardQuestion visibilidade={!toggleCardQuestion ? "none" : "block"}>
-                <h1>{question}</h1>
+                <h1 data-test='flashcard-text'>{question}</h1>
                 <img
+                    data-test='turn-btn'
                     src={iconVirar}
                     onClick={() => {
                         setToggleCardQuestion(false);
@@ -80,15 +81,28 @@ export default function Card({ numberFlashCard, question, answer, contador, setC
                 />
             </StyledCardQuestion>
             <StyledAnswer visibilidade={!toggleCardAnswer ? "none" : "flex"}>
-                <h1>{answer}</h1>
+                <h1 data-test='flashcard-text'>{answer}</h1>
                 <div>
-                    <StyledButtonNLembrei onClick={naoLembrei}>Não Lembrei</StyledButtonNLembrei>
-                    <StyledButtonQNLembrei onClick={quaseLembrei}>
+                    <StyledButtonNLembrei data-test='no-btn' onClick={naoLembrei}>
+                        Não Lembrei
+                    </StyledButtonNLembrei>
+                    <StyledButtonQNLembrei data-test='partial-btn' onClick={quaseLembrei}>
                         Quase não lembrei
                     </StyledButtonQNLembrei>
-                    <StyledButtonZap onClick={acertei}>Zap!</StyledButtonZap>
+                    <StyledButtonZap data-test='zap-btn' onClick={acertei}>
+                        Zap!
+                    </StyledButtonZap>
                 </div>
             </StyledAnswer>
+            <StyledCorrecaoInitial
+                data-test='flashcard'
+                corDaLetra={corLetra}
+                textoDecorado={stateAtual}
+                visibilidade={toggleCardCorrecao ? "flex" : "none"}
+            >
+                <h1 data-test='flashcard-text'>Pergunta {numberFlashCard}</h1>
+                <img data-test={dataTestIcon} src={imgCorrecao} alt='Icone de Virar' />
+            </StyledCorrecaoInitial>
         </>
     );
 }
@@ -110,8 +124,7 @@ const StyledCardInitial = styled.div`
         font-weight: 700;
         font-size: 16px;
         line-height: 19px;
-        color: ${(props) => props.corDaLetra};
-        text-decoration: ${(props) => props.textoDecorado};
+        color: ${CORPADRAO};
     }
 `;
 
@@ -206,4 +219,26 @@ const StyledButtonZap = styled.button`
     font-size: 12px;
     line-height: 14px;
     text-align: center;
+`;
+
+const StyledCorrecaoInitial = styled.div`
+    width: 80%;
+    height: 65px;
+    background-color: #fff;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    display: ${(props) => props.visibilidade};
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 20px;
+    margin-bottom: 25px;
+
+    h1 {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: ${(props) => props.corDaLetra};
+        text-decoration: ${(props) => props.textoDecorado};
+    }
 `;
