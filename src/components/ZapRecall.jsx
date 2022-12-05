@@ -31,6 +31,7 @@ export default function ZapRecall() {
         },
     ];
     const [contador, setContador] = useState(0);
+    const [filaRespostas, setFilaRespostas] = useState([]);
 
     return (
         <StyledContainerTotal>
@@ -38,8 +39,19 @@ export default function ZapRecall() {
                 <StyledImg src={logo} alt='Um raio da logo do ZapRecall' />
                 <StyledH1>ZapRecall</StyledH1>
             </StyledLogo>
-            <Flashcards cards={cards} contador={contador} setContador={setContador} />
-            <Sidebar contador={contador} qtdTotal={cards.length} />
+            <Flashcards
+                cards={cards}
+                contador={contador}
+                setContador={setContador}
+                setFilaRespostas={setFilaRespostas}
+                filaRespostas={filaRespostas}
+            />
+            <Sidebar
+                contador={contador}
+                qtdTotal={cards.length}
+                setFilaRespostas={setFilaRespostas}
+                filaRespostas={filaRespostas}
+            />
         </StyledContainerTotal>
     );
 }

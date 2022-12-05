@@ -11,7 +11,15 @@ const CORERROU = "#FF3030";
 const CORDUVIDA = "#FF922E";
 const CORACERTOU = "#2FBE34";
 
-export default function Card({ numberFlashCard, question, answer, contador, setContador }) {
+export default function Card({
+    numberFlashCard,
+    question,
+    answer,
+    contador,
+    setContador,
+    setFilaRespostas,
+    filaRespostas,
+}) {
     const [toggleCardInitial, setToggleCardInitial] = useState(false);
     const [toggleCardQuestion, setToggleCardQuestion] = useState(false);
     const [toggleCardAnswer, setToggleCardAnswer] = useState(false);
@@ -27,6 +35,7 @@ export default function Card({ numberFlashCard, question, answer, contador, setC
         setToggleCardCorrecao(true);
         setCorLetra(CORERROU);
         setImgCorrecao(iconErrou);
+        setFilaRespostas([...filaRespostas, iconErrou]);
         setContador(contador + 1);
         setDataTestIcon("no-icon");
     }
@@ -37,6 +46,7 @@ export default function Card({ numberFlashCard, question, answer, contador, setC
         setToggleCardCorrecao(true);
         setCorLetra(CORDUVIDA);
         setImgCorrecao(iconQuase);
+        setFilaRespostas([...filaRespostas, iconQuase]);
         setContador(contador + 1);
         setDataTestIcon("partial-icon");
     }
@@ -47,9 +57,11 @@ export default function Card({ numberFlashCard, question, answer, contador, setC
         setToggleCardCorrecao(true);
         setCorLetra(CORACERTOU);
         setImgCorrecao(iconCerto);
+        setFilaRespostas([...filaRespostas, iconCerto]);
         setContador(contador + 1);
         setDataTestIcon("zap-icon");
     }
+    console.log(filaRespostas);
 
     return (
         <>
